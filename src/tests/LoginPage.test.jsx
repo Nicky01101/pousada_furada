@@ -9,7 +9,8 @@ test("deve exibir alerta se usuário ou senha estiverem vazios", () => {
  </MemoryRouter>
  );
  fireEvent.click(screen.getByText("Entrar"));
- expect(window.alert).toHaveBeenCalledWith("Por favor, preencha usuário e senha.");
+ expect(window.alert).toHaveBeenCalledWith("Por favor, preencha usuário e
+senha.");
 });
 test("deve redirecionar ao preencher login corretamente", () => {
  window.alert = jest.fn();
