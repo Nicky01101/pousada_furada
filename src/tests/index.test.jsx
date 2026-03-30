@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Home from "../../pages/index";
+import Home from "../pages/index";
 describe("Página Inicial", () => {
  it("renderiza o título principal", () => {
  render(<Home />);
