@@ -1,28 +1,42 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import LoginPage from "../pages/LoginPage";
-
-test("deve exibir alerta se usuário ou senha estiverem vazios", () => {
- window.alert = jest.fn();
- render(
- <MemoryRouter>
- <LoginPage />
- </MemoryRouter>
- );
- fireEvent.click(screen.getByText("Entrar"));
- expect(window.alert).toHaveBeenCalledWith("Por favor, preencha usuário e senha.");
-});
-test("deve redirecionar ao preencher login corretamente", () => {
- window.alert = jest.fn();
- render(
- <MemoryRouter>
- <LoginPage />
- </MemoryRouter>
- );
- fireEvent.change(screen.getByLabelText("Usuário:"), { target: { value: "Maria"
-} });
- fireEvent.change(screen.getByLabelText("Senha:"), { target: { value: "123" }
-});
- fireEvent.click(screen.getByText("Entrar"));
- expect(window.alert).toHaveBeenCalledWith("Bem-vindo, Maria!");
-});
+// src/pages/LoginPage.jsx
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+export default function LoginPage() {
+    const [usuario, setUsuario] = useState("");
+    const [senha, setSenha] = useState("");
+    const navigate = useNavigate();
+    const handleLogin = (e) => {
+        e.preventDefault();
+        if (usuario && senha) {
+            alert(`Bem-vindo, ${usuario}!`);
+            navigate("/tarefas");
+        } else {
+            alert("Por favor, preencha usuário e senha.");
+        }};
+    return (
+        <section>
+            <h2>Login</h2>
+            <form onSubmit={handleLogin}>
+                <label>
+                    Usuário:
+                    <input
+                        type="text"
+                        value={usuario}
+                        onChange={(e) => setUsuario(e.target.value)}
+                    />
+                </label>
+                <br />
+                <label>
+                    Senha:
+                        <input
+                            type="password"
+                            value={senha}
+                            onChange={(e) => setSenha(e.target.value)}
+                            />
+                </label>
+                <br />
+                <button type="submit">Entrar</button>
+            </form>
+     </section>
+    );
+}
